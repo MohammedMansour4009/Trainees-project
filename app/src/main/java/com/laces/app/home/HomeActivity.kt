@@ -1,9 +1,7 @@
-package com.laces.app.home.presentation
+package com.laces.app.home
 
 import android.view.LayoutInflater
 import com.laces.app.databinding.ActivityHomeBinding
-import com.laces.app.home.domain.ProductModel
-import com.laces.app.home.presentation.adapter.ProductAdapter
 import com.laces.app.mvp.OccActivity
 
 class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>(),
@@ -17,7 +15,7 @@ class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>()
         return ActivityHomeBinding.inflate(layoutInflater)
     }
 
-    override fun getProduct(result: List<ProductModel>) {
-        binding.recyclerViewProducts.adapter = ProductAdapter(result)
+    override fun setContentText(text: String) {
+        binding.textViewContent.text = text
     }
 }

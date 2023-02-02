@@ -26,7 +26,6 @@ android {
 
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 
     compileOptions {
@@ -54,9 +53,4 @@ dependencies {
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
 
     testImplementation 'junit:junit:4.13.2'
-
-    def retrofit = "2.8.1"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-
 }
