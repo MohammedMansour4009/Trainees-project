@@ -2,14 +2,14 @@ package com.laces.app.home
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.laces.app.data.AppRepository
-import com.laces.app.model.ProductModel
 import com.laces.app.mvp.OccPresenter
+import com.laces.app.sdk.SdkImpl
+import com.laces.app.sdk.model.ProductModel
 import kotlinx.coroutines.launch
 
 class HomePresenter : OccPresenter<HomeView>() {
 
-    private val appRepository = AppRepository()
+    private val sdk = SdkImpl()
     private val _successLiveData: MutableLiveData<List<ProductModel>> = MutableLiveData()
     private val _errorLiveData: MutableLiveData<Throwable> = MutableLiveData()
     private val _loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -22,7 +22,7 @@ class HomePresenter : OccPresenter<HomeView>() {
         presenterScope.launch {
             _loadingLiveData.postValue(true)
             try {
-                _successLiveData.postValue(appRepository.getProducts())
+                _successLiveData.postValue(sdk.getProducts())
             } catch (e: java.lang.Exception) {
                 _errorLiveData.postValue(e)
             }

@@ -1,4 +1,4 @@
-package com.laces.app.model
+package com.laces.app.sdk.model
 
 
 import com.google.gson.annotations.SerializedName

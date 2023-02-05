@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.laces.app.databinding.RowProductBinding
-import com.laces.app.model.ProductModel
+import com.laces.app.sdk.model.ProductModel
 
 class HomeAdapter(private val productList: List<ProductModel>, val onClickItem: (id : Int) -> Unit) :
     RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {

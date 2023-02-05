@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.laces.app.databinding.ActivityHomeBinding
 import com.laces.app.details.DetailsActivity
-import com.laces.app.model.ProductModel
 import com.laces.app.mvp.OccActivity
+import com.laces.app.sdk.model.ProductModel
 
 class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>(),
     HomeView {
@@ -24,7 +24,7 @@ class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>()
 
     override fun setRecyclerData(result: List<ProductModel>) {
         //Log.d("LOG00",result.toString())
-        binding.recyclerViewProducts.adapter = HomeAdapter(result, ::goToProductDeciteslas)
+        binding.recyclerViewProducts.adapter = HomeAdapter(result, ::goToProductDetails)
     }
 
     override fun setLoading(isLoading: Boolean) {
@@ -35,7 +35,7 @@ class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun goToProductDeciteslas(id: Int) {
+    private fun goToProductDetails(id: Int) {
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra("id", id)
         startActivity(intent)
