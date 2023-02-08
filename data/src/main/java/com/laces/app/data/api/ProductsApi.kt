@@ -1,7 +1,7 @@
-package com.laces.app.sdk.api
+package com.laces.app.data.api
 
-import com.laces.app.sdk.model.ProductModel
-import com.laces.app.sdk.model.WrapperProduct
+import com.laces.app.data.model.ProductModel
+import com.laces.app.data.model.WrapperProduct
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

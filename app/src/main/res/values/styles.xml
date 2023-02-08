@@ -4,7 +4,7 @@
 
     <style name="StyleRatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@android:color/darker_gray</item>
-        <item name="colorControlActivated">#FFEB3B</item>
+        <item name="colorControlActivated">#EAD205</item>
     </style>
 
 </resources>

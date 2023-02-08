@@ -1,4 +1,4 @@
-package com.laces.app.sdk
+package com.laces.app.data
 
 import com.laces.app.sdk.api.ProductsApi
 import com.laces.app.sdk.model.ProductModel

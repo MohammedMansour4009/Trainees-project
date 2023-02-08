@@ -1,4 +1,4 @@
-package com.laces.app.sdk.network
+package com.laces.app.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

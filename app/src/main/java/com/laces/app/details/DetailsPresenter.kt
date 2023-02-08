@@ -1,14 +1,42 @@
 package com.laces.app.details
 
-import com.laces.app.mvp.OccPresenter
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.laces.app.sdk.SdkImpl
-import kotlinx.coroutines.Dispatchers
+import com.laces.app.sdk.model.ProductModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailsPresenter(private val productId: Int) : OccPresenter<DetailsView>() {
 
     private val sdk = SdkImpl()
+
+    private val _successLivaData: MutableLiveData<ProductModel> = MutableLiveData()
+    private val _errorLiveData: MutableLiveData<Throwable> = MutableLiveData()
+    private val _loadingLivaData: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun observeProducts(lifecycleOwner: LifecycleOwner) {
+        _successLivaData.observe(lifecycleOwner, ::handleSuccess)
+        _loadingLivaData.observe(lifecycleOwner, ::handleLoading)
+        _errorLiveData.observe(lifecycleOwner, ::handleError)
+    }
+
+    private fun handleSuccess(result: ProductModel) {
+        sendToView { view -> view.getProductDetails(result) }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        sendToView { view ->
+            Log.d("TAG00", "3: $isLoading")
+            view.setLoading(isLoading)
+
+        }
+    }
+
+    private fun handleError(throwable: Throwable) {
+        sendToView { view -> view.setError(throwable.message!!) }
+    }
+
     override fun onCreate() {
         super.onCreate()
         getDetails(productId)
@@ -16,14 +44,16 @@ class DetailsPresenter(private val productId: Int) : OccPresenter<DetailsView>()
 
 
     private fun getDetails(productId: Int) {
-        sendToView { view ->
-            presenterScope.launch {
-                val result = sdk.getDetails(productId)
-                withContext(Dispatchers.Main) {
-                    view.getProductDetails(result)
-                }
+        presenterScope.launch {
+            _loadingLivaData.postValue(true)
+            try {
+                _successLivaData.postValue(sdk.getDetails(productId))
+            } catch (e: java.lang.Exception) {
+                _errorLiveData.postValue(e)
             }
+            _loadingLivaData.postValue(false)
         }
+
 
     }
 }

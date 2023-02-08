@@ -1,4 +1,4 @@
-package com.laces.app.mvp
+package com.laces.app.core
 
 import android.os.Bundle
 import android.view.LayoutInflater

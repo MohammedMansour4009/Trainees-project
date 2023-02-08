@@ -53,11 +53,11 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_status"
             style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:background="@{model.inStock()? @drawable/background_in_stock : @drawable/background_out_stock}"
+            android:background="@{model.inStock()? @drawable/background_in_stock : @drawable/background_out_stock }"
             android:maxLines="1"
             android:paddingHorizontal="7dp"
             android:paddingVertical="2dp"
@@ -81,6 +81,7 @@
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="10sp"
+            tools:ignore="SmallSp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/text_view_title"
             app:layout_constraintTop_toBottomOf="@id/text_view_status"
@@ -216,8 +217,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginTop="16dp"
-                android:ellipsize="end"
-                android:maxLines="5"
                 android:text="@{model.description}"
                 android:textAlignment="viewStart"
                 android:visibility="@{showDescription ? View.VISIBLE : View.GONE}"
@@ -278,6 +277,15 @@
             app:layout_constraintBottom_toBottomOf="@id/text_view_status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_view_status" />
-
+        <ProgressBar
+            android:id="@+id/progress_bar_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

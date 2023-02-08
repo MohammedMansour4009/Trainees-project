@@ -5,34 +5,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import com.laces.app.core.BaseActivity
+import com.laces.app.data.model.ProductModel
 import com.laces.app.databinding.ActivityHomeBinding
 import com.laces.app.details.DetailsActivity
-import com.laces.app.mvp.OccActivity
-import com.laces.app.sdk.model.ProductModel
 
-class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>(),
-    HomeView {
 
-    override fun providePresenter(): HomePresenter {
-        return HomePresenter()
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
+
+    lateinit var viewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        initObserver()
     }
 
     override fun provideBinding(layoutInflater: LayoutInflater): ActivityHomeBinding {
         return ActivityHomeBinding.inflate(layoutInflater)
     }
 
-
-    override fun setRecyclerData(result: List<ProductModel>) {
-        //Log.d("LOG00",result.toString())
+    private fun setRecyclerData(result: List<ProductModel>) {
         binding.recyclerViewProducts.adapter = HomeAdapter(result, ::goToProductDetails)
     }
 
-    override fun setLoading(isLoading: Boolean) {
-        binding.progress.isVisible = isLoading
+    private fun setLoading(isLoading: Boolean) {
+        binding.progressBarHome.isVisible = isLoading
     }
 
-    override fun setError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun setError(throwable: Throwable) {
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun goToProductDetails(id: Int) {
@@ -41,10 +44,11 @@ class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>()
         startActivity(intent)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter.observeProducts(this)
-    }
 
+    private fun initObserver() {
+        viewModel.loadingLiveData.observe(this, ::setLoading)
+        viewModel.errorLiveData.observe(this, ::setError)
+        viewModel.successLiveData.observe(this, ::setRecyclerData)
+    }
 
 }

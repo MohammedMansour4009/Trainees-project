@@ -15,5 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Laces"
 
 include ':app'
-include ':mvp'
-include ':sdk'
+include ':data'
+include ':core'
